@@ -1,0 +1,9 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  last_sent: 2011-07-13 11:08:43
+  user: 
+
+two:
+  last_sent: 2011-07-13 11:08:43
+  user: 

@@ -1,0 +1,76 @@
+%h1 X3watch
+
+%p Greetings!
+
+%p
+  You are receiving this email from
+  %strong 
+    = @user.email
+  who has signed up for 
+  %a(href = "http://www.x3watch.com") X3watch
+  a personal accountability service from 
+  %a(href = "http://www.xxxchurch.com/")Triple X Church
+  , and has identified you as their accountability partner. If you've received this email in error or you don't want to be 
+  %strong  
+    = @user.username
+    's 
+  accountability partner, please ask them to remove your email address from the X3watch application:
+  = @recipients   
+      
+%h1 What Happens Now?
+
+%p
+  You will receive an e-mail every 1 week(s) containing all possible questionable sites they may have visited on their 
+  - if @user.source == "iphone"
+    = "iPhone, iPad, or iPod Touch."
+  - elsif @user.source == "android"
+    = "Android device."
+  This information is meant to encourage an open and honest conversation between friends and help us all be more accountable. You should also add the address 
+  %a(href = "mailto:x3watchapp@gmail.com")x3watchapp@gmail.com 
+  to your email address book to ensure it's not marked as spam email. 
+
+- if @user.source == "android"
+  %p
+    Below you'll find a list of apps that are already installed on 
+    = @user.username
+    's Android device. For a full description of each app, click on the app name. 
+  %table
+    %tr
+      %th S.No
+      %th Name
+    - @user.mobileapps.each_with_index do |mobileapp, index|
+      - if !mobileapp.deleted
+        %tr
+          %td= index + 1        
+          %td
+            %a{:href => "http://www.appbrain.com/app/#{mobileapp.package_name }"}
+              = mobileapp.app_name          
+      
+%h1 I Want More Info!
+				
+%p
+  %a(href = "http://www.x3watch.com/")X3watch
+  is accountability software provided by 
+  %a(href = "http://www.xxxchurch.com/")Triple X Church
+  a non-profit organization which exists to bring awareness, openness, accountability and recovery to the church, society, and individuals in the issues of explicit material.
+
+%h1 Learn More About Triple X Church
+%p
+  Support the Ministry and Help Keep X3watch Available! - 
+  %a(href = "http://www.xxxchurch.com/donate.html")Donate to X3
+  %br
+  Keep up to Date with Triple X Church - 
+  %a(href = "http://xxxchurch.com/newsletter.html")Sign up for the X3 Newsletter 
+
+%h1 Get More Help
+%p
+  Overcome Addiction - 
+  %a(href = "http://www.x3pure.com/")Check out X3Pure
+  %br
+  ($5 off with coupon code 'X3watch' - Limited Time Only!)
+  %br
+  Get the #1 Internet Filter on PC and Mac - 
+  %a(href = "http://www.x3watch.com/x3watchpro.html")X3watch Pro
+	
+	
+ 

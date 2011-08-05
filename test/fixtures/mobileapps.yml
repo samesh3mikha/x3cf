@@ -1,0 +1,15 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  app_name: MyString
+  package_name: MyString
+  deleted: false
+  sent_email: false
+  user_id: 1
+
+two:
+  app_name: MyString
+  package_name: MyString
+  deleted: false
+  sent_email: false
+  user_id: 1

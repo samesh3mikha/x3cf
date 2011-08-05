@@ -1,0 +1,32 @@
+.bundle
+.DS_Store
+.rvmrc
+.rspec
+.autotest
+
+tmp/**/*
+
+log/development.log
+log/*.log
+
+db/schema.rb
+db/*.sqlite3
+
+#deploy file
+config/deploy.rb
+
+#database config file
+config/database.yml
+
+#database
+db/development.sqlite3
+
+#paperclip attachment
+public/system/*
+
+#capybara
+capybara_*.html
+
+#resque dump
+dump.rdb
+vendor/cache/*

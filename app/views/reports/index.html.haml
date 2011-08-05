@@ -1,0 +1,17 @@
+%h1.report_title 
+  Weblog report for 
+  = current_user.username.titleize 
+   
+%table.table-design
+  %tr  
+    %th S.No.
+    %th.col-url Url
+    %th Visited_at  
+    %th Source
+  - @weblogs.each_with_index do |weblog, index| 
+    %tr
+      %td= index + 1
+      %td.col-url= weblog.try(:url)
+      %td= weblog.try(:visited_at)
+      %td= weblog.try(:source)
+   

@@ -1,0 +1,79 @@
+%h1 X3watch
+
+%p Greetings!
+
+%p
+  You are receiving this email from
+  %strong 
+    = @user.email
+  who has signed up for 
+  %a(href = "http://www.x3watch.com") X3watch
+  a personal accountability service from 
+  %a(href = "http://www.xxxchurch.com/")Triple X Church
+  , and has identified you as their accountability partner for their 
+  - if @user.source == "iphone"
+    = "iPhone, iPad, or iPod Touch."
+  - elsif @user.source == "android"
+    = "Android device."
+
+%p
+  Please see the information listed below for possible questionable websites that may have been visited over the past week(s): Please ask your accountability partner if they have looked at anything questionable on their mobile device or any other place. X3watch will only monitor what has been looked at from the X3watch app.       
+
+- if @user.source == "iphone"
+  = '** For iPhone, iPad, or iPod Touch, X3watch only works when the default web browser "Safari" is disabled. The reports will notify you every time "Safari" is enabled and disabled. Enabling "Safari" is a way around being accountable. The reports will list the time and date that "Safari" was enabled and disabled.'
+  %br
+  %br
+  - if @weblogs.count > 0    
+    = "URLs in current report: " + @weblogs.count.to_s
+    %br
+    %a{:href => "http://x3watch.heroku.com/reports?auth_token=#{@user.authentication_token}"} Please click here for the current report.
+  -else
+    = '-- No questionable sites were visited on the mobile device during the reported period. Please check in with your accountability partner and ask if they have disabled Safari on their iPhone, iPod Touch, or iPad. Please also ask them if they have looked at anything questionable on their iPhone, iPod Touch, or iPad or any other place. --'
+- elsif @user.source == "android"
+  - if @installed_apps.count > 0
+    = "New Apps Installed:"
+    - @installed_apps.each do |installed_app|
+      %br
+      %a{:href => "http://www.appbrain.com/app/#{installed_app.package_name }"}
+        = installed_app.app_name
+  %br  
+  %br  
+  - if @uninstalled_apps.count > 0
+    = "Deleted Apps:"
+    - @uninstalled_apps.each do |uninstalled_app|
+      %br
+      %a{:href => "http://www.appbrain.com/app/#{uninstalled_app.package_name }"}
+        = uninstalled_app.app_name  
+  %br    
+  %br
+  - if @weblogs.count > 0    
+    = "URLs in current report: " + @weblogs.count.to_s
+    %br
+    %a{:href => "http://x3watch.heroku.com/reports?auth_token=#{@user.authentication_token}"} Please click here for the current report.
+
+%p
+  %a(href = "http://www.x3watch.com/")X3watch
+  is accountability software provided by 
+  %a(href = "http://www.xxxchurch.com/")Triple X Church
+  a non-profit organization which exists to bring awareness, openness, accountability and recovery to the church, society, and individuals in the issues of explicit material.
+
+%h1 Learn More About Triple X Church
+%p
+  Support the Ministry and Help Keep X3watch Available! - 
+  %a(href = "http://www.xxxchurch.com/donate.html")Donate to X3
+  %br
+  Keep up to Date with Triple X Church - 
+  %a(href = "http://xxxchurch.com/newsletter.html")Sign up for the X3 Newsletter 
+
+%h1 Get More Help
+%p
+  Overcome Addiction - 
+  %a(href = "http://www.x3pure.com/")Check out X3Pure
+  %br
+  ($5 off with coupon code 'X3watch' - Limited Time Only!)
+  %br
+  Get the #1 Internet Filter on PC and Mac - 
+  %a(href = "http://www.x3watch.com/x3watchpro.html")X3watch Pro
+	
+	
+ 
