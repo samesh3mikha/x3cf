@@ -17,7 +17,7 @@ gem 'mysql', '2.8.1'
 # HTML Extraction for filtering
 gem 'alchemy_api', :git => "git://github.com/dipeshgtm/alchemy_api.git"
 
-gem 'cloudfactory', '~> 0.0.13'
+gem 'cloudfactory', '>= 0.1.8'
 
 group :development, :test do
   gem 'ruby-debug19', :require => 'ruby-debug'  

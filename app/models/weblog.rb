@@ -9,14 +9,20 @@ class Weblog < ActiveRecord::Base
     def checkIfPorn(url)
       puts ('++++++++++++++++++++++++++++++ CHECKING IF PORN')
       
-      #FETCH CF LINE
-      line = CF::Line.info("auto-adult-content-moderation-line")
-      
+      #FETCH CF LINE ... NOT RETURNING LINE OBJECT AS EXPECTED BY CF SO KEPT ON HOLD
+      # line = CF::Line.info("auto-adult-content-moderation-line")
+      # puts ('++++++++++++++++++++++++++++++++++++++++++  LINE')
+      # puts (line.inspect)
+
       #CREATE RUN
-      run = CF::Run.create(line, "x3cf_1", ["http://google.com","http://msn.com","http://yahoo.com"])
-      
+      run = CF::Run.create("auto-adult-content-moderation-line", "x3cf_8",  [{"url" => "http://sexstory.com/index.htm", "meta_data" => "http://sexstory.com"},{"url" => "http://googe.com", "meta_data" => "http://googe.com"}, {"url" => "http://gogle.com", "meta_data" => "http://googe.com"}])
+      puts ('++++++++++++++++++++++++++++++++++++++++++  RUN')
+      puts (run.inspect)
+            
       # FETCH OUTPUT
-      final_output = Run.final_output("x3cf_1")
+      final_output = run.final_output #CF::Run.final_output("x3cf_1")
+      puts ('++++++++++++++++++++++++++++++++++++++++++  FINAL output')
+      puts (final_output.inspect)
       
       return false
     end
