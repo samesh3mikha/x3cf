@@ -15,7 +15,7 @@ class Weblog < ActiveRecord::Base
       # puts (line.inspect)
 
       #CREATE RUN
-      run = CF::Run.create("auto-adult-content-moderation-line", "x3cf_8",  [{"url" => "http://sexstory.com/index.htm", "meta_data" => "http://sexstory.com"},{"url" => "http://googe.com", "meta_data" => "http://googe.com"}, {"url" => "http://gogle.com", "meta_data" => "http://googe.com"}])
+      run = CF::Run.create("auto-adult-content-moderation-line", "x3cf_11",  [{"url" => "http://sexstory.com/index.htm", "meta_data" => "http://sexstory.com"},{"url" => "http://googe.com", "meta_data" => "http://googe.com"}, {"url" => "http://gogle.com", "meta_data" => "http://googe.com"}])
       puts ('++++++++++++++++++++++++++++++++++++++++++  RUN')
       puts (run.inspect)
             

@@ -28,7 +28,7 @@ class WeblogsController < ApplicationController
   end
   
   def weblog_checked_notification
-    
+     render :nothing => true
   end
   
   #PRIVATE METHODS
