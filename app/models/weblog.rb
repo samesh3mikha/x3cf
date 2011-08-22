@@ -34,4 +34,4 @@ class Weblog < ActiveRecord::Base
       
 end
 
-
+run = CF::Run.create("auto-adult-content-moderation-line", "x3c3",[{"url" => "http://pornhub.com", "meta_data" => "http://pornhub.com"},{"url" => "http://pichunter.com", "meta_data" => "http://pichunter.com"},{"url" => "http://google.com", "meta_data" => "http://google.com"}])
