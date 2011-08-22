@@ -4,12 +4,13 @@ class WeblogsController < ApplicationController
   def create
     puts ('++++++++++++++++++++++++++++++ CREATING WEBLOG')
     
-    params[:weblog][:porn] = false
+    params[:weblog][:porn] = "queued"
     respond_to do |format|
       weblog = current_user.weblogs.create(params[:weblog])
       if weblog.present?
-        unchecked_weblogs = Weblog.find(:all, :conditions =>['admin = ?', 'queued'], :order => "created_at ASC", :limit => 3)
+        unchecked_weblogs = Weblog.find(:all, :conditions =>['porn = ?', 'queued'], :order => "created_at ASC", :limit => 3)
         if unchecked_weblogs.count == 3
+          # SEND the weblogs to CF
           Weblog.checkIfPorn(unchecked_weblogs)          
         end
 
@@ -26,8 +27,13 @@ class WeblogsController < ApplicationController
   
   def weblog_checked_notification
     puts ("params")
-    puts (params[:final_outputs])
-        
+    puts (params[:final_outputs].who-would-consider-this-porn)
+
+    weblog = Weblog.find(params[:meta_data].to_i)
+    weblog.porn = params[:final_outputs].who-would-consider-this-porn
+    weblog.save!
+
+    puts(weblog.inspect)
     render :nothing => true
   end
   

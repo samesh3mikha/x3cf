@@ -14,7 +14,7 @@ class Weblog < ActiveRecord::Base
 
       #CREATE RUN
       run_title = APP_CONFIG['run_title_prefix'] + "_" +  weblogs[0].id.to_s + "_" +  weblogs[1].id.to_s + "_" +  weblogs[2].id.to_s
-      run = CF::Run.create("adult-website-moderation", + run_title,
+      run = CF::Run.create("adult-website-moderation", run_title,
         [
           {"url" => weblogs[0].url.to_s, "meta_data" => weblogs[0].id.to_s},
           {"url" => weblogs[1].url.to_s, "meta_data" => weblogs[1].id.to_s},

@@ -11,8 +11,18 @@ class RegistrationsController < Devise::RegistrationsController
     resource.email = params[:email]
     resource.username = params[:username]
     resource.source = params[:source]
-    resource.reportduration = params[:reportduration].to_i
+    resource.report_day = params[:report_day].to_i
     resource.safari_enabled = params[:safari_enabled]
+    if params[:source] == 'iphone' 
+      if params[:safari_changed_time].present?
+        if params[:safari_changed_time].class == String
+          params[:safari_changed_time] = Time.parse(params[:safari_changed_time])
+        end
+      end
+    else
+      params[:safari_changed_time] = Time.now
+    end
+    resource.safari_changed_time = params[:safari_changed_time]
     if params[:password].present?
       resource.password = params[:password]
     else
