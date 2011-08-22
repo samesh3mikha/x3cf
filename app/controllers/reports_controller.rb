@@ -29,16 +29,17 @@ class ReportsController < ApplicationController
     
     if @weblogs.present?
       @weblogs.compact!
-    end    
+    end 
+    @user = current_user   
   end
   
   def sendgrid_event_notification 
     puts ":::::::::  Notification received  from Sendgrid !!  ::::::::" 
     puts params
-    
+
     if params[:email_type] == "report"
       user = User.find(params[:user_id])
-      user.update_report_log(params[:email] , params[:logged_date] , params[:event])            
+      user.update_report_log(params[:email] , eval(params[:report_ids]), params[:event])            
     end
 
     render :nothing => true

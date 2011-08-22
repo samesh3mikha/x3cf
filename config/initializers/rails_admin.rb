@@ -16,8 +16,9 @@ RailsAdmin.config do |config|
       field :username
       field :source
       field :admin
+      field :report_day
       field :safari_enabled
-      field :reportduration
+      field :safari_changed_time
     end
   end
   config.model Partner do

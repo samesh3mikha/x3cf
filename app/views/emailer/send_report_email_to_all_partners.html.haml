@@ -29,6 +29,15 @@
     %a{:href => "http://x3watch.heroku.com/reports?auth_token=#{@user.authentication_token}"} Please click here for the current report.
   -else
     = '-- No questionable sites were visited on the mobile device during the reported period. Please check in with your accountability partner and ask if they have disabled Safari on their iPhone, iPod Touch, or iPad. Please also ask them if they have looked at anything questionable on their iPhone, iPod Touch, or iPad or any other place. --'
+  %br
+  %br
+  = 'safari '
+  - if @user.safari_enabled
+    = 'enabled at '
+  -else
+    = 'disabled at '
+  = @user.safari_changed_time
+    
 - elsif @user.source == "android"
   - if @installed_apps.count > 0
     = "New Apps Installed:"
@@ -51,11 +60,9 @@
     %br
     %a{:href => "http://x3watch.heroku.com/reports?auth_token=#{@user.authentication_token}"} Please click here for the current report.
 
-%p
-  %a(href = "http://www.x3watch.com/")X3watch
-  is accountability software provided by 
-  %a(href = "http://www.xxxchurch.com/")Triple X Church
-  a non-profit organization which exists to bring awareness, openness, accountability and recovery to the church, society, and individuals in the issues of explicit material.
+%p 
+  %a(href = "http://www.xxxchurch.com/")XXXchurch.com 
+  is a non profit organization that exists to help people of all ages who are being assaulted by pornography. We prevail through awareness, prevention and recovery.
 
 %h1 Learn More About Triple X Church
 %p

@@ -3,11 +3,22 @@ class UsersController < ApplicationController
   before_filter :require_login
 
   def update
-    if params[:sync] = 0
+    if params[:sync].to_i == 0
        current_user.email = params[:email]
        current_user.username = params[:username]
-       current_user.reportduration = params[:reportduration].to_i
+       current_user.report_day = params[:report_day].to_i
        current_user.safari_enabled = params[:safari_enabled]
+       if params[:source] == 'iphone' 
+         if params[:safari_changed_time].present?
+           if params[:safari_changed_time].class = String
+             params[:safari_changed_time] = Time.parse(params[:safari_changed_time])
+           end
+         end
+       else
+         params[:safari_changed_time] = Time.now
+       end
+       current_user.safari_changed_time = params[:safari_changed_time]
+       
        if current_user.save
          current_user.send_settings_changed_notification_to_all_partners  
        end

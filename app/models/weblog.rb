@@ -6,30 +6,70 @@ class Weblog < ActiveRecord::Base
   belongs_to :user  
   
   class << self
-    def checkIfPorn(weblogs)
+    def checkIfPorn(url)
       puts ('++++++++++++++++++++++++++++++ CHECKING IF PORN')
       
-      #FETCH CF LINE ... NOT RETURNING LINE OBJECT AS EXPECTED BY CF SO KEPT ON HOLD
-      # line = CF::Line.info("auto-adult-content-moderation-line")
+        title = AlchemyApi::TextExtraction.get_title_from_url(url).title
+        title = title.downcase
+        title_words = ""
+        title.scan(/\b([\w+]{3,12})\b/).map{|st| title_words = title_words + st[0].to_s + " "}
+        total_title_words = title_words.split.size
+        badwords_hash = Hash.new
+        badwords_hash = match_badwords(title_words)
+        badwords_count = 0
+        badwords_percent = 0
+        badwords_hash.values.each do |value|
+          badwords_count += value
+        end
 
-      #CREATE RUN
-      run_title = APP_CONFIG['run_title_prefix'] + "_" +  weblogs[0].id.to_s + "_" +  weblogs[1].id.to_s + "_" +  weblogs[2].id.to_s
-      run = CF::Run.create("adult-website-moderation", run_title,
-        [
-          {"url" => weblogs[0].url.to_s, "meta_data" => weblogs[0].id.to_s},
-          {"url" => weblogs[1].url.to_s, "meta_data" => weblogs[1].id.to_s},
-          {"url" => weblogs[2].url.to_s, "meta_data" => weblogs[2].id.to_s}
-        ])
-      if run.present?
-        weblogs.each do |weblog|
-          weblog.porn = "pending"
-          weblog.save!
+        if total_title_words > 0
+          badwords_percent = (badwords_count.to_f/total_title_words.to_f) * 100
+        end
+        puts ('++++++++++++++++++++++++++++++ TITLE badwords_hash')
+        puts (badwords_hash)
+        if badwords_percent >= 25
+          return true
+        end
+                                    
+        content = AlchemyApi::TextExtraction.get_raw_text_from_url(url).text
+        content = content.downcase
+        content_words = ""
+        content.scan(/\b([\w+]{3,12})\b/).map{|st| content_words = content_words + st[0].to_s + " "}
+        total_content_words = content_words.split.size
+        badwords_hash = Hash.new      
+        badwords_hash = match_badwords(content_words)
+        badwords_count = 0
+        badwords_percent = 0
+        badwords_hash.values.each do |value|
+          badwords_count += value
+        end
+        puts ('++++++++++++++++++++++++++++++ CONTENT badwords_hash')
+        puts (badwords_hash)
+
+        if total_content_words > 0
+          badwords_percent = (badwords_count.to_f/total_content_words.to_f) * 100
+        end      
+        if badwords_count >= 35 or badwords_percent >= 25
+          return true
+        end
+
+      
+        return false
+    end
+  
+    def match_badwords(content)
+      keywords_hash = Hash.new
+      keywords = APP_CONFIG['keywords']      
+
+      keywords.each do |keyword|
+        if content.include?(keyword)
+           keywords_hash.keys << keyword
+           keywords_hash[keyword] = content.scan(/#{keyword}/i).count
         end
       end
-      
-      puts ('++++++++++++++++++++++++++++++++++++++++++  RUN')
-      puts (run.inspect)            
+    
+      return keywords_hash
     end
   end
-      
+    
 end

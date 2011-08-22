@@ -14,4 +14,14 @@
       %td.col-url= weblog.try(:url)
       %td= weblog.try(:visited_at)
       %td= weblog.try(:source)
-   
+      
+%br
+%br
+%br
+- if @user.source == "iphone"
+  = 'safari '
+  - if @user.safari_enabled
+    = 'enabled at '
+  -else
+    = 'disabled at '
+  = @user.safari_changed_time

@@ -17,15 +17,12 @@
   Email: 
   = @user.email
 %p
-  Reporting Period: 
-  = @user.reportduration/168
-  week(s)
+  Reporting Day: 
+  = Util.num_to_day(@user.report_day)  
   
-%p
-  %a(href = "http://www.x3watch.com") X3watch
-  is accountability software provided by 
-  %a(href = "http://www.xxxchurch.com/") Triple X Church 
-  a non-profit organization which exists to bring awareness, openness, accountability and recovery to the church, society, and individuals in the issues of explicit material.
+%p 
+  %a(href = "http://www.xxxchurch.com/")XXXchurch.com 
+  is a non profit organization that exists to help people of all ages who are being assaulted by pornography. We prevail through awareness, prevention and recovery.
       
 %h1 Learn More About Triple X Church
 %p

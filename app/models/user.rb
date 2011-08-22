@@ -3,27 +3,27 @@ require 'smtp_api_header'
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable, :lockable and :timeoutable
-  devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable, :token_authenticatable
+  devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :token_authenticatable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :username, :password_confirmation, :remember_me, :reportduration, :safari_enabled
+  attr_accessible :email, :password, :username, :password_confirmation, :remember_me, :report_day, :safari_enabled, :safari_changed_time
   
   has_and_belongs_to_many :partners
   has_many :report_logs
   has_many :weblogs 
   has_many :mobileapps
   before_save :ensure_authentication_token    
+  validates :email, :presence =>  true
+  validates :password, :presence =>  true
   
   # This method is called when notification from sendGrid is received.
-  def update_report_log(partner_email,logged_date,status) 
-
+  def update_report_log(partner_email, report_ids, status) 
    pid = Partner.find_by_email("#{partner_email}").id
-   logged_date = Time.parse(logged_date)
    
+   reportlogs = self.report_logs.where(:partner_id => pid, :id => report_ids)
    puts ("+++++++++++++++++++++++++++++++ REPORT LIST ALL")
-   reportlogs = self.report_logs.collect{ |r| r if (r.partner_id == pid and r.created_at.utc.to_s == logged_date.utc.to_s) } 
+   puts (reportlogs.inspect)
    if reportlogs.present?
-     reportlogs.compact!
      reportlogs.first.update_attributes(:email_status =>  "#{status}")
    end   
   end
@@ -91,19 +91,15 @@ class User < ActiveRecord::Base
   # This method is called via Rufu-scheduler. It gathers all the users and send email to their respective partners.
   def self.collect_xusers_and_send_email_to_accountable_partners 
     users = []  
-    stime = 1.hour.ago.utc  
-    etime = Time.now.utc  
+    stime = 1.hour.ago.hour
+    etime = Time.now.hour  
     # Collect all the users whose report sending duration fall within given instance of 1 hour ( ie. between stime and etime)
     self.find_each(:batch_size => 500) do |usr| 
-      unless usr.username == "admin" 
-        if usr.report_logs.present?  
-          latest_sent_date = usr.report_logs.last.try(:created_at)
-          users << usr.id if (stime..etime).cover?(latest_sent_date + usr.reportduration.try(:hour))
-        else 
-          users << usr.id if (stime..etime).cover?(usr.created_at + usr.reportduration.try(:hour))  
-        end 
-      end  
+      users << usr.id if (Time.now.hour == usr.created_at.hour and usr.report_day == (Time.now.wday + 1))
     end 
+    
+    puts ("+++++++++++++++++++++++++++++++++++++++++++++++++++")
+    puts (users.count)
     # Send email to the accountable partners of each user.
     users.each do |uid| 
       send_report_to_all_partners(uid)
@@ -123,11 +119,15 @@ class User < ActiveRecord::Base
 
     if receiver.present?
       # Log the email status as 'pending' in 'report_logs' table
+      report_ids = []
       logged_date = Time.new.utc
-      partners_id.each {|id| x3user.report_logs.create!(:email_status => 'pending', :partner_id => id, :created_at => logged_date) }
+      report_logs_created = partners_id.each { |id| 
+        report_log = x3user.report_logs.create!(:email_status => 'pending', :partner_id => id, :created_at => logged_date) 
+        report_ids<<report_log.id
+      }      
       # logged_date = x3user.report_logs.last.created_at
       puts ("+++++++++++++++++++++++++++++++ LOG CREATED DATE")
-      puts (logged_date)
+      puts (report_ids)
 
       # Get the weblogs to be reported
       latest_sent_date = ""
@@ -158,7 +158,7 @@ class User < ActiveRecord::Base
       # Generate Email Header 
       hdr = SmtpApiHeader.new()  
       hdr.addTo(receiver)
-      unique_args = {"user_id" => "#{x3user.id}","logged_date" => "#{logged_date}", "email_type" => "report"} 
+      unique_args = {"user_id" => "#{x3user.id}", "report_ids" => "#{report_ids}", "email_type" => "report"} 
       hdr.setUniqueArgs(unique_args)
 
       # Send the emails  to all the accountable partners

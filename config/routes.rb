@@ -15,11 +15,7 @@ X3watchRails::Application.routes.draw do
  
   # match "/report/:token" => "reports#index", :as => :authenticated_report
 
-  resource :weblogs do
-    collection do
-      post :weblog_checked_notification
-    end
-  end
+  resource :weblogs
   resources :reports
   
   # The priority is based upon order of creation:

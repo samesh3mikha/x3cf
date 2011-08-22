@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.9' 
+gem 'rails' 
 gem "haml-rails" 
 gem 'rufus-scheduler'
 gem "devise","1.1.5"
@@ -11,13 +11,13 @@ gem 'ruby_parser'  #devise N Haml dependency
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 #gem 'sqlite3'
-gem 'rails_admin', :git => 'git://github.com/sferik/rails_admin.git'
+gem 'rails_admin', :git => 'git://github.com/sferik/rails_admin.git', :branch => 'rails-3.0'
 gem 'mysql', '2.8.1'
 
 # HTML Extraction for filtering
 gem 'alchemy_api', :git => "git://github.com/dipeshgtm/alchemy_api.git"
 
-gem 'cloudfactory', '>= 0.1.8'
+gem 'heroku'
 
 group :development, :test do
   gem 'ruby-debug19', :require => 'ruby-debug'  
