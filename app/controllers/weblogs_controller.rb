@@ -27,8 +27,7 @@ class WeblogsController < ApplicationController
   def weblog_checked_notification
     puts ("params")
     puts (params[:final_outputs])
-    puts ()
-    
+        
     render :nothing => true
   end
   
