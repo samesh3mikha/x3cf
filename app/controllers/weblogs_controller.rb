@@ -4,7 +4,7 @@ class WeblogsController < ApplicationController
   def create
     puts ('++++++++++++++++++++++++++++++ CREATING WEBLOG')
     
-    params[:weblog][:porn] = "queued"
+    params[:weblog][:porn] = "not_checked"
     respond_to do |format|
       weblog = current_user.weblogs.create(params[:weblog])
       if weblog.present?
