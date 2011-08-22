@@ -204,7 +204,7 @@ PLATFORMS
 DEPENDENCIES
   alchemy_api!
   capybara!
-  cloudfactory
+  cloudfactory (~> 0.1.14)
   database_cleaner
   devise (= 1.1.5)
   haml-rails

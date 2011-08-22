@@ -33,3 +33,5 @@ class Weblog < ActiveRecord::Base
   end
       
 end
+
+
