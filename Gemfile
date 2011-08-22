@@ -1,6 +1,7 @@
 source 'http://rubygems.org'
 
 gem 'rails' 
+gem 'heroku'
 gem "haml-rails" 
 gem 'rufus-scheduler'
 gem "devise","1.1.5"
@@ -17,7 +18,7 @@ gem 'mysql', '2.8.1'
 # HTML Extraction for filtering
 gem 'alchemy_api', :git => "git://github.com/dipeshgtm/alchemy_api.git"
 
-gem 'heroku'
+gem 'cloudfactory'
 
 group :development, :test do
   gem 'ruby-debug19', :require => 'ruby-debug'  

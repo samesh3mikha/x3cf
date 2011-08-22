@@ -65,7 +65,19 @@ GEM
     builder (2.1.2)
     childprocess (0.2.0)
       ffi (~> 1.0.6)
+    cloudfactory (0.1.14)
+      activesupport (~> 3.0.3)
+      hashie (~> 1.0.0)
+      highline
+      httparty (~> 0.7.8)
+      i18n
+      json
+      millisami-csv-hash
+      rest-client
+      terminal-table (~> 1.4.2)
+      thor (~> 0.14.6)
     columnize (0.3.4)
+    crack (0.1.8)
     database_cleaner (0.6.7)
     devise (1.1.5)
       bcrypt-ruby (~> 2.1.2)
@@ -81,14 +93,19 @@ GEM
       activesupport (~> 3.0)
       haml (~> 3.0)
       railties (~> 3.0)
+    hashie (1.0.0)
     heroku (2.4.1)
       launchy (>= 0.3.2)
       rest-client (~> 1.6.1)
       term-ansicolor (~> 1.0.5)
+    highline (1.6.2)
     hirb (0.5.0)
     hpricot (0.8.4)
+    httparty (0.7.8)
+      crack (= 0.1.8)
     i18n (0.5.0)
     itslog (0.5.0)
+    json (1.5.3)
     json_pure (1.5.3)
     launchy (2.0.5)
       addressable (~> 2.2.6)
@@ -100,6 +117,8 @@ GEM
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
+    millisami-csv-hash (0.2.0)
+      fastercsv (~> 1.5.0)
     mime-types (1.16)
     monster_mash (0.2.3)
       typhoeus (>= 0.2.4)
@@ -165,6 +184,7 @@ GEM
       rubyzip
     sexp_processor (3.0.5)
     term-ansicolor (1.0.6)
+    terminal-table (1.4.2)
     thor (0.14.6)
     treetop (1.4.10)
       polyglot
@@ -184,6 +204,7 @@ PLATFORMS
 DEPENDENCIES
   alchemy_api!
   capybara!
+  cloudfactory
   database_cleaner
   devise (= 1.1.5)
   haml-rails
