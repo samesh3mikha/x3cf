@@ -3,19 +3,16 @@ class WeblogsController < ApplicationController
   before_filter :require_login, :except => [:weblog_checked_notification]
   def create
     puts ('++++++++++++++++++++++++++++++ CREATING WEBLOG')
-    # if params[:weblog][:source] == "iphone"
-    #   params[:weblog][:porn] = true
-    # else
-      params[:weblog][:porn] = false
-      if Weblog.checkIfPorn(params[:weblog][:url])
-        params[:weblog][:porn] = true
-      end      
-    # end
-
     
+    params[:weblog][:porn] = false
     respond_to do |format|
-      if current_user.weblogs.create(params[:weblog])
-        puts (params[:weblog][:source_id])
+      weblog = current_user.weblogs.create(params[:weblog])
+      if weblog.present?
+        unchecked_weblogs = Weblog.find(:all, :conditions =>['admin = ?', 'queued'], :order => "created_at ASC", :limit => 3)
+        if unchecked_weblogs.count == 3
+          Weblog.checkIfPorn(unchecked_weblogs)          
+        end
+
         format.html { redirect_to(home_index_url)}
         format.xml  { render :xml => {'success'=> params[:weblog][:source_id] }}
         format.json { render :json => {'success'=> params[:weblog][:source_id] } }
@@ -28,7 +25,11 @@ class WeblogsController < ApplicationController
   end
   
   def weblog_checked_notification
-     render :nothing => true
+    puts ("params")
+    puts (params[:final_outputs])
+    puts ()
+    
+    render :nothing => true
   end
   
   #PRIVATE METHODS

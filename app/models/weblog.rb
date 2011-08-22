@@ -6,40 +6,30 @@ class Weblog < ActiveRecord::Base
   belongs_to :user  
   
   class << self
-    def checkIfPorn(url)
+    def checkIfPorn(weblogs)
       puts ('++++++++++++++++++++++++++++++ CHECKING IF PORN')
       
       #FETCH CF LINE ... NOT RETURNING LINE OBJECT AS EXPECTED BY CF SO KEPT ON HOLD
       # line = CF::Line.info("auto-adult-content-moderation-line")
-      # puts ('++++++++++++++++++++++++++++++++++++++++++  LINE')
-      # puts (line.inspect)
 
       #CREATE RUN
-      run = CF::Run.create("auto-adult-content-moderation-line", "x3cf_11",  [{"url" => "http://sexstory.com/index.htm", "meta_data" => "http://sexstory.com"},{"url" => "http://googe.com", "meta_data" => "http://googe.com"}, {"url" => "http://gogle.com", "meta_data" => "http://googe.com"}])
-      puts ('++++++++++++++++++++++++++++++++++++++++++  RUN')
-      puts (run.inspect)
-            
-      # FETCH OUTPUT
-      final_output = run.final_output #CF::Run.final_output("x3cf_1")
-      puts ('++++++++++++++++++++++++++++++++++++++++++  FINAL output')
-      puts (final_output.inspect)
-      
-      return false
-    end
-  
-    def match_badwords(content)
-      keywords_hash = Hash.new
-      keywords = APP_CONFIG['keywords']      
-
-      keywords.each do |keyword|
-        if content.include?(keyword)
-           keywords_hash.keys << keyword
-           keywords_hash[keyword] = content.scan(/#{keyword}/i).count
+      run_title = APP_CONFIG['run_title_prefix'] + "_" +  weblogs[0].id.to_s + "_" +  weblogs[1].id.to_s + "_" +  weblogs[2].id.to_s
+      run = CF::Run.create("adult-website-moderation", + run_title,
+        [
+          {"url" => weblogs[0].url.to_s, "meta_data" => weblogs[0].id.to_s},
+          {"url" => weblogs[1].url.to_s, "meta_data" => weblogs[1].id.to_s},
+          {"url" => weblogs[2].url.to_s, "meta_data" => weblogs[2].id.to_s}
+        ])
+      if run.present?
+        weblogs.each do |weblog|
+          weblog.porn = "pending"
+          weblog.save!
         end
       end
-    
-      return keywords_hash
+      
+      puts ('++++++++++++++++++++++++++++++++++++++++++  RUN')
+      puts (run.inspect)            
     end
   end
-    
+      
 end
