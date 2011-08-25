@@ -27,10 +27,10 @@ class WeblogsController < ApplicationController
   
   def weblog_checked_notification
     puts ("params")
-    puts (params[:final_outputs].who-would-consider-this-porn)
+    puts (params[:final_outputs].first["who-would-consider-this-porn"])
 
     weblog = Weblog.find(params[:meta_data].to_i)
-    weblog.porn = params[:final_outputs].first[" who-would-consider-this-porn"]
+    weblog.porn = params[:final_outputs].first["who-would-consider-this-porn"]
     weblog.save!
 
     puts(weblog.inspect)
