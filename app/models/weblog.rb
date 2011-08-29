@@ -34,7 +34,8 @@ class Weblog < ActiveRecord::Base
       
 end
 
-# run = CF::Run.create("auto-adult-content-moderation-line", "x3c8",[{"url" => "http://pornhub.com", "meta_data" => "http://pornhub.com"},{"url" => "http://pichunter.com", "meta_data" => "http://pichunter.com"},{"url" => "http://pichunter.com", "meta_data" => "http://pichuner.com"}])
+# run = CF::Run.create("auto-adult-content-moderation-line", "x3c43",[{"url" => "http://pornhub.com", "meta_data" => "http://pornhub.com"},{"url" => "http://pichunter.com", "meta_data" => "http://pichunter.com"},{"url" => "http://pichunter.com", "meta_data" => "http://pichuner.com"}])
+# run = CF::Run.create("auto-adult-content-moderation-line", "x3c10",[])
 
 
-# run = CF::Run.create("english-to-japanese", "run_1",[{"textl" => "translate this to nepalese car", "meta_data" => "realle"}])
+# run = CF::Run.create("english-to-japanese", "run_2",[])
