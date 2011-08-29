@@ -18,8 +18,12 @@ class UsersController < ApplicationController
          params[:safari_changed_time] = Time.now
        end
        current_user.safari_changed_time = params[:safari_changed_time]
+       puts ("before change++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
+       puts (current_user.inspect)
        
        if current_user.save
+         puts ("After change++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
+         puts (current_user.inspect)
          current_user.send_settings_changed_notification_to_all_partners  
        end
 
