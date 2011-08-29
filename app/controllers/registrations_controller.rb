@@ -30,8 +30,9 @@ class RegistrationsController < Devise::RegistrationsController
       resource.password = SecureRandom.base64(10)
     end
 
-    puts ('NO PASSWORD 00000000000000000000000000000000000000000000000000000000000000000')
+    puts ('PASSWORD 00000000000000000000000000000000000000000000000000000000000000000')
     puts (resource.inspect)
+    puts (resource.password)
     
     if resource.save!
       sign_in(resource_name, resource)
