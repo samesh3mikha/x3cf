@@ -21,7 +21,7 @@ class UsersController < ApplicationController
        puts ("before change++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
        puts (current_user.inspect)
        
-       if current_user.save
+       if current_user.save!
          puts ("After change++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
          puts (current_user.inspect)
          current_user.send_settings_changed_notification_to_all_partners  
