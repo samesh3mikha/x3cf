@@ -172,7 +172,7 @@ class User < ActiveRecord::Base
   def mark_all_mobileapps_as_reported(user)
     user.mobileapps.each do |mobileapp|
       mobileapp.sent_email = true
-      mobileapp.save
+      mobileapp.save!
     end
   end
       

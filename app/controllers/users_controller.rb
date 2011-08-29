@@ -93,7 +93,7 @@ class UsersController < ApplicationController
               app.app_name = mobile_app[:app_name]
             end
             app.sent_email = false
-            app.save
+            app.save!
           end
         end        
       end

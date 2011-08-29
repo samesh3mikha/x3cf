@@ -24,12 +24,13 @@ class RegistrationsController < Devise::RegistrationsController
     end
     resource.safari_changed_time = params[:safari_changed_time]
     if params[:password].present?
+      puts ('PASWRORD PRESENT 00000000000000000000000000000000000000000000000000000000000000000')
       resource.password = params[:password]
     else
       resource.password = SecureRandom.base64(10)
     end
 
-    puts ('00000000000000000000000000000000000000000000000000000000000000000')
+    puts ('NO PASSWORD 00000000000000000000000000000000000000000000000000000000000000000')
     puts (resource.inspect)
     
     if resource.save!
@@ -62,7 +63,7 @@ class RegistrationsController < Devise::RegistrationsController
         if partner.present?
           # Partner email is already present
           current_user.partners << partner
-          current_user.save
+          current_user.save!
         else
           # Partner email is NOT present, create NEW
           current_user.partners.create({:email => partner_email.to_s})
