@@ -17,6 +17,7 @@ class ApplicationController < ActionController::Base
      if params[:auth_token]
        @user ||= User.where(:authentication_token => params[:auth_token]).first
        puts ("PAS PASSS  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" + @user.password.to_s)
+       puts ("USER  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" + User.where(:authentication_token => params[:auth_token]).first.inspect)
      else
        super
      end
