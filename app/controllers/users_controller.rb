@@ -20,6 +20,7 @@ class UsersController < ApplicationController
        current_user.safari_changed_time = params[:safari_changed_time]
        puts ("before change++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
        puts (current_user.inspect)
+       puts (current_user.password)
        
        if current_user.save!
          puts ("After change++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
