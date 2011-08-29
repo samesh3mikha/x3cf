@@ -14,7 +14,6 @@ class User < ActiveRecord::Base
   has_many :mobileapps
   before_save :ensure_authentication_token    
   validates :email, :presence =>  true
-  validates :password, :presence =>  true
   
   # This method is called when notification from sendGrid is received.
   def update_report_log(partner_email, report_ids, status) 
