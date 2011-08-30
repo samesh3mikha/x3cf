@@ -8,8 +8,20 @@ class RegistrationsController < Devise::RegistrationsController
   
   def create
     build_resource
+    params[:username].gsub!("%20", " ")
+    params[:username].gsub!("%26", "&")
+    params[:username].gsub!("%3C", "<")
+    params[:username].gsub!("%3E", ">")
+    params[:username].gsub!("%21", "!")
+    params[:username].gsub!("%28", "(")
+    params[:username].gsub!("%29", ")")
+    params[:username].gsub!("%3B", ";")
+    params[:username].gsub!("%3A", ":")
+    params[:username].gsub!("%2F", "/")
+    params[:username].gsub!("%3D", "=")
+    params[:username].gsub!("%22", '"')
     resource.email = params[:email]
-    resource.username = params[:username].gsub!("%20", " ")
+    resource.username = params[:username]
     resource.source = params[:source]
     resource.report_day = params[:report_day].to_i
     resource.safari_enabled = params[:safari_enabled]
