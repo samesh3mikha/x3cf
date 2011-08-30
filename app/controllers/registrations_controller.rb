@@ -9,7 +9,7 @@ class RegistrationsController < Devise::RegistrationsController
   def create
     build_resource
     resource.email = params[:email]
-    resource.username = params[:username]
+    resource.username = params[:username].gsub!("%20", " ")
     resource.source = params[:source]
     resource.report_day = params[:report_day].to_i
     resource.safari_enabled = params[:safari_enabled]
