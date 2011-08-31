@@ -21,13 +21,15 @@
 
 - if @user.source == "iphone"
   = '** For iPhone, iPad, or iPod Touch, X3watch only works when the default web browser "Safari" is disabled. The reports will notify you every time "Safari" is enabled and disabled. Enabling "Safari" is a way around being accountable. The reports will list the time and date that "Safari" was enabled and disabled.'
-  %a{:href => "http://x3watch.heroku.com/reports?auth_token=#{@user.authentication_token}", :class => "report_link"} Please click here for the current report.
   %br
+  .report_link
+    %a{:href => "http://x3watch.heroku.com/reports?auth_token=#{@user.authentication_token}"} Please click here for the current report.
   %br
   - if @weblogs.count > 0    
     = "URLs in current report: " + @weblogs.count.to_s
     %br
-    %a{:href => "http://x3watch.heroku.com/reports?auth_token=#{@user.authentication_token}", :class => "report_link"} Please click here for the current report.
+    .report_link
+      %a{:href => "http://x3watch.heroku.com/reports?auth_token=#{@user.authentication_token}"} Please click here for the current report.
   -else
     = '-- No questionable sites were visited on the mobile device during the reported period. Please check in with your accountability partner and ask if they have disabled Safari on their iPhone, iPod Touch, or iPad. Please also ask them if they have looked at anything questionable on their iPhone, iPod Touch, or iPad or any other place. --'
   %br
