@@ -20,8 +20,8 @@ class RegistrationsController < Devise::RegistrationsController
     params[:username].gsub!("%2F", "/")
     params[:username].gsub!("%3D", "=")
     params[:username].gsub!("%22", '"')
-    resource.email = params[:email]
     resource.username = params[:username]
+    resource.email = params[:email]
     resource.source = params[:source]
     resource.report_day = params[:report_day].to_i
     resource.safari_enabled = params[:safari_enabled]

@@ -26,7 +26,7 @@
   - if @weblogs.count > 0    
     = "URLs in current report: " + @weblogs.count.to_s
     %br
-    %a{:href => "http://x3watch.heroku.com/reports?auth_token=#{@user.authentication_token}"} Please click here for the current report.
+    %a{:href => "http://x3watch.heroku.com/reports?auth_token=#{@user.authentication_token}", :class => "report_link"} Please click here for the current report.
   -else
     = '-- No questionable sites were visited on the mobile device during the reported period. Please check in with your accountability partner and ask if they have disabled Safari on their iPhone, iPod Touch, or iPad. Please also ask them if they have looked at anything questionable on their iPhone, iPod Touch, or iPad or any other place. --'
   %br
@@ -58,7 +58,7 @@
   - if @weblogs.count > 0    
     = "URLs in current report: " + @weblogs.count.to_s
     %br
-    %a{:href => "http://x3watch.heroku.com/reports?auth_token=#{@user.authentication_token}"} Please click here for the current report.
+    %a{:href => "http://x3watch.heroku.com/reports?auth_token=#{@user.authentication_token}", :class => "report_link"} Please click here for the current report.
 
 %p 
   %a(href = "http://www.xxxchurch.com/")XXXchurch.com 
