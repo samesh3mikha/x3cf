@@ -4,7 +4,7 @@ class Emailer < ActionMailer::Base
     @recipient = recipient 
     @subject = "Welcome to X3watch"
     @recipients = recipient
-    @from = "X3watch@gmail.com" #TODO : Change this email 
+    @from = '"X3watch" <mobile@x3watch.com>' #TODO : Change this email 
     @sent_on = sent_at 
     @headers["X-SMTPAPI"] = header 
     content_type "text/html" 
@@ -24,7 +24,7 @@ class Emailer < ActionMailer::Base
     @user = user
     @subject = "X3watch - " + user.username + ", your accountability partner, has removed your address from the system"
     @recipients = recipient
-    @from = "X3watch@gmail.com" #TODO : Change this email 
+    @from = '"X3watch" <mobile@x3watch.com>' #TODO : Change this email 
     @sent_on = sent_at 
     @headers["X-SMTPAPI"] = header 
     content_type "text/html"
@@ -34,7 +34,7 @@ class Emailer < ActionMailer::Base
     @user = user
     @subject = "X3watch - " + user.username + ", your accountability partner has changed settings"
     @recipients = recipient
-    @from = "X3watch@gmail.com" #TODO : Change this email 
+    @from = '"X3watch" <mobile@x3watch.com>' #TODO : Change this email 
     @sent_on = sent_at 
     @headers["X-SMTPAPI"] = header 
     content_type "text/html"
@@ -48,7 +48,7 @@ class Emailer < ActionMailer::Base
     @uninstalled_apps = uninstalled_apps
     @subject = "X3watch - report of " +  user.username
     @recipients = recipient
-    @from = "X3watch@gmail.com" #TODO : Change this email 
+    @from = '"X3watch" <mobile@x3watch.com>' #TODO : Change this email 
     @sent_on = sent_at
     @headers["X-SMTPAPI"] = header 
     content_type "text/html"                       
